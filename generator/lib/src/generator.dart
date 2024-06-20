@@ -478,16 +478,16 @@ class RetrofitGenerator extends GeneratorForAnnotation<retrofit.RestApi> {
           literal(contentType.peek('mime')?.stringValue);
     }
 
-    /// gen code for request body for content-type on Protobuf body
-    final annotation = _getAnnotation(m, retrofit.Body);
-    final bodyName = annotation?.item1;
-    if (bodyName != null) {
-      if (const TypeChecker.fromRuntime(GeneratedMessage)
-          .isAssignableFromType(bodyName.type)) {
-        extraOptions[_contentType] = literal(
-            "application/x-protobuf; \${${bodyName.displayName}.info_.qualifiedMessageName == \"\" ? \"\" :\"messageType=\${${bodyName.displayName}.info_.qualifiedMessageName}\"}");
-      }
-    }
+    // /// gen code for request body for content-type on Protobuf body
+    // final annotation = _getAnnotation(m, retrofit.Body);
+    // final bodyName = annotation?.item1;
+    // if (bodyName != null) {
+    //   if (const TypeChecker.fromRuntime(GeneratedMessage)
+    //       .isAssignableFromType(bodyName.type)) {
+    //     extraOptions[_contentType] = literal(
+    //         "application/x-protobuf; \${${bodyName.displayName}.info_.qualifiedMessageName == \"\" ? \"\" :\"messageType=\${${bodyName.displayName}.info_.qualifiedMessageName}\"}");
+    //   }
+    // }
 
     extraOptions[_baseUrlVar] = refer(_baseUrlVar);
 
@@ -2098,18 +2098,18 @@ ${bodyName.displayName} == null
     final cacheMap = _generateCache(m);
     headers.addAll(cacheMap);
 
-    /// gen code for request Accept for Protobuf
-    final returnType = _getResponseType(m.returnType);
+    // /// gen code for request Accept for Protobuf
+    // final returnType = _getResponseType(m.returnType);
 
-    if (returnType != null &&
-        _typeChecker(GeneratedMessage).isAssignableFromType(returnType)) {
-      headers.removeWhere(
-          (key, value) => "accept".toLowerCase() == key.toLowerCase());
-      headers.addAll({
-        "accept": literal(
-            "application/x-protobuf; \${${_displayString(returnType)}.getDefault().info_.qualifiedMessageName == \"\" ? \"\" :\"messageType=\${${_displayString(returnType)}.getDefault().info_.qualifiedMessageName}\"}")
-      });
-    }
+    // if (returnType != null &&
+    //     _typeChecker(GeneratedMessage).isAssignableFromType(returnType)) {
+    //   headers.removeWhere(
+    //       (key, value) => "accept".toLowerCase() == key.toLowerCase());
+    //   headers.addAll({
+    //     "accept": literal(
+    //         "application/x-protobuf; \${${_displayString(returnType)}.getDefault().info_.qualifiedMessageName == \"\" ? \"\" :\"messageType=\${${_displayString(returnType)}.getDefault().info_.qualifiedMessageName}\"}")
+    //   });
+    // }
 
     return headers;
   }
